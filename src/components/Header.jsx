@@ -1,4 +1,5 @@
 
+import logo from './../assets/img/house_logo.png';
 
 
 function Header() {
@@ -6,10 +7,10 @@ function Header() {
     <div className="header">
       <div className="container">
         <div className="header__logo">
-          <img width="38" src="./img/pizza-logo.svg" alt="Pizza logo" />
+          <img width="38" src={logo} alt="Pizza logo" />
           <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+            <h1>Казанские теплицы</h1>
+            <p>самые лучшие теплицы россии</p>
           </div>
         </div>
         <div className="header__cart">

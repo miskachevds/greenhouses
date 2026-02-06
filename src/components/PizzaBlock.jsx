@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import imgPizza1 from './../img/image 2.svg'
+import imgPizza1 from './../assets/img/image 2.svg'
 
 const PizzaBlock = ({title, price}) => {
     const [pizzaCount, setPizzaCount] = useState(0);
