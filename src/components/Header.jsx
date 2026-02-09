@@ -9,8 +9,8 @@ function Header() {
         <div className="header__logo">
           <img width="38" src={logo} alt="Pizza logo" />
           <div>
-            <h1>Казанские теплицы</h1>
-            <p>самые лучшие теплицы россии</p>
+            <h1>Казанские заборы</h1>
+            <p>самые лучшие заборы россии</p>
           </div>
         </div>
         <div className="header__cart">
