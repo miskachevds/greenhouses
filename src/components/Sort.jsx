@@ -1,6 +1,16 @@
-
+import { useState } from "react";
 
 const Sort = () => {
+  const [open, setOpen] = useState(false);//открытие закрытие сорт
+  const [selected, setSelected] = useState(0);//выбранная сортировка,по умолч первое значение выбрано
+  const list = ['популярность', 'цене', 'алфавиту']//рендер списка
+  const sortName = list[selected];
+
+  const onClickListItem = (index) => {
+    setSelected(index);//выбери пунк меню 
+    setOpen(false);//скройся
+  }
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -16,16 +26,26 @@ const Sort = () => {
             fill="#2C2C2C"
           />
         </svg>
+
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setOpen(!open)}>{sortName}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+
+      {open && (//условный рендеринг
+        <div className="sort__popup">
+          <ul>
+            {
+              list.map((name, index) => (
+                <li key={index}
+                  onClick={() => onClickListItem(index)}
+                  className={selected === index ? 'active' : ''} >
+                  {name}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
