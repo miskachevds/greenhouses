@@ -3,6 +3,7 @@ import { useState } from "react";
 const Sort = () => {
   const [open, setOpen] = useState(false);//открытие закрытие сорт
   const [selected, setSelected] = useState(0);//выбранная сортировка,по умолч первое значение выбрано
+  
   const list = ['популярность', 'цене', 'алфавиту']//рендер списка
   const sortName = list[selected];
 
