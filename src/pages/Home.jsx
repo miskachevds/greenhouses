@@ -20,6 +20,7 @@ const Home = () => {
                 setIsLoading(false);//скажи что бы загрузка завершилась
                 // console.log(data)
             })
+            window.scrollTo(0, 0);
     }, []);//пустой массив=вызвать один раз
 
     return (
