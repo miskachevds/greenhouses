@@ -1,14 +1,21 @@
 import { useState } from "react";
 
-const Sort = () => {
+const Sort = ({value, onChangeSort}) => {
   const [open, setOpen] = useState(false);//открытие закрытие сорт
-  const [selected, setSelected] = useState(0);//выбранная сортировка,по умолч первое значение выбрано
+  // const [selected, setSelected] = useState(0);//выбранная сортировка,по умолч первое значение выбрано
   
-  const list = ['популярность', 'цене', 'алфавиту']//рендер списка
-  const sortName = list[selected];
+  const list = [
+    { name:'популярность(DECK)', sortProperty: 'rating'}, 
+    { name:'популярность(ASC)', sortProperty: '-rating'}, 
+    { name:'цене(DECK)', sortProperty: 'price'}, 
+    { name:'цене(ASC)', sortProperty: '-price'}, 
+    { name:'алфавиту(DESC)', sortProperty: 'title'}, 
+    { name:'алфавиту(ASC)', sortProperty: '-title'}, 
+  ]//рендер списка
+  // const sortName = list[value].name;
 
-  const onClickListItem = (index) => {
-    setSelected(index);//выбери пунк меню 
+  const onClickListItem = (i) => {
+    onChangeSort(i);//выбери пунк меню 
     setOpen(false);//скройся
   }
 
@@ -29,18 +36,18 @@ const Sort = () => {
         </svg>
 
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
 
       {open && (//условный рендеринг
         <div className="sort__popup">
           <ul>
             {
-              list.map((name, index) => (
-                <li key={index}
-                  onClick={() => onClickListItem(index)}
-                  className={selected === index ? 'active' : ''} >
-                  {name}
+              list.map((obj, i) => (
+                <li key={i}
+                  onClick={() => onClickListItem(obj)}
+                  className={value.sortProperty === obj.sortProperty ? 'active' : ''} >
+                  {obj.name}
                 </li>
               ))
             }

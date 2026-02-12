@@ -11,10 +11,23 @@ const Home = () => {
     const [isLoading, setIsLoading] = React.useState(true);//если идет загрузка,флаг тру
 
     const [categoryId, setCategoryId] = React.useState(0);//состояние из категорий
-    const [sortType, setSortType] = React.useState(0);//состояние из сортировки
+    const [sortType, setSortType] = React.useState({
+        name: "популярности",
+        sortProperty: "rating",
+    });//состояние из сортировки
+    // console.log(categoryId,sortType)
 
     React.useEffect(() => {//не получает значение,получает функцию,кот вызывает когда произойдет какой то эффект
-        fetch('https://68dd22fe7cd1948060ac902b.mockapi.io/items')
+        setIsLoading(true)//чтобы подгружались скилетоны
+
+        const sortBy = sortType.sortProperty.replace('-','');
+        const order = sortType.sortProperty.includes('-') ? 'ags':'desc';
+        const category = categoryId > 0 ? `categoryId=${categoryId}` : '';
+
+        fetch(
+            `https://68dd22fe7cd1948060ac902b.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+        )
+
             .then(response => {//когда отправили запрос,тогда ждем
                 return response.json();//возвращаем и преобразовываем в json
             })
@@ -23,14 +36,14 @@ const Home = () => {
                 setIsLoading(false);//скажи что бы загрузка завершилась
                 // console.log(data)
             })
-            window.scrollTo(0, 0);
-    }, []);//пустой массив=вызвать один раз
-
+        window.scrollTo(0, 0);
+    }, [categoryId, sortType]);//пустой массив=вызвать один раз
+                               //флаг,как происходят изм обновлять запр
     return (
         <>
             <div className="content__top">
-                <Categories value={categoryId} onClickCategory={(id) => setCategoryId(id)} />
-                <Sort />
+                <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
+                <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
 
             </div>
             <h2 className="content__title">Все пиццы</h2>

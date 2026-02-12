@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Categories = ({value, onClickCategory }) => {//если будет клик по категории,передаем родителю в home
+const Categories = ({value, onChangeCategory }) => {//если будет клик по категории,передаем родителю в home
   // console.log(value)
 
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
@@ -11,7 +11,7 @@ const Categories = ({value, onClickCategory }) => {//если будет кли�
         {
           categories.map((categoryName, i) => (
             <li key={i}
-              onClick={() => onClickCategory(i)}
+              onClick={() => onChangeCategory(i)}
               className={value === i ? 'active' : ''} >
               {categoryName}
             </li>
@@ -25,3 +25,4 @@ const Categories = ({value, onClickCategory }) => {//если будет кли�
 export default Categories;
 //активный индекс храним в value
 //при нажатии вызываем функцию onClickCategory(i) передаем i,индекс идет обратно в home
+//здесь state нет,он у родитнля
