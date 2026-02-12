@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
@@ -10,14 +9,12 @@ import './scss/app.scss'
 
 // import pizzas from './assets/pizzas.json';
 // console.log(pizzas)
-
 function App() {
-
+  const [searchValue, setSearchValue ] = React.useState('');
 
   return (
     <div className="wrapper">
-
-      <Header />
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       <div className="content">
         <div className="container">
           <Routes>
@@ -30,7 +27,6 @@ function App() {
     </div>
   );
 }
-
 export default App;
 //header будет статично на всех страницах
 //пишем Routes там где будет динамика
