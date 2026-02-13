@@ -15,10 +15,11 @@ function App() {
   return (
     <div className="wrapper">
       <Header searchValue={searchValue} setSearchValue={setSearchValue} />
+      
       <div className="content">
         <div className="container">
           <Routes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Home searchValue={searchValue} />} />
             <Route path='cart' element={<Cart />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
@@ -30,3 +31,4 @@ function App() {
 export default App;
 //header будет статично на всех страницах
 //пишем Routes там где будет динамика
+//сохран данные в searchValue,прокидываем в home для фильтрации
