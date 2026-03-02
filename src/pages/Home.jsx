@@ -4,11 +4,13 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaPlock/PizzaBlock'
 import Skeleton from '../components/PizzaPlock/Skeleton';
-import Pagination from '../components/Pagination/Pagination.jsx'
+import Pagination from '../components/Pagination/Pagination.jsx';
+import { SearchContext } from '../App.js';
 
 
-const Home = ({ searchValue }) => {
+const Home = () => {
 
+    const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);//изначально пустые данные,
     const [isLoading, setIsLoading] = React.useState(true);//если идет загрузка,флаг тру
 
