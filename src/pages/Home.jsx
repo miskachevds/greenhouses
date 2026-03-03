@@ -7,20 +7,31 @@ import Skeleton from '../components/PizzaPlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination.jsx';
 import { SearchContext } from '../App.js';
 
+import { useSelector, useDispatch } from 'react-redux'
+
 
 const Home = () => {
+    const categoryId = useSelector((state) => state.filter.categoryId);
+
+    console.log('id category', categoryId);
+    // const setCategoryId =()=>{};//заглушка временно
 
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);//изначально пустые данные,
     const [isLoading, setIsLoading] = React.useState(true);//если идет загрузка,флаг тру
 
-    const [categoryId, setCategoryId] = React.useState(0);//состояние из категорий
+    // const [categoryId, setCategoryId] = React.useState(0);//состояние из категорий
     const [currentPage, setCurrentPage] = React.useState(1);//для паддинга
     const [sortType, setSortType] = React.useState({
         name: "популярности",
         sortProperty: "rating",
     });//состояние из сортировки
     // console.log(categoryId,sortType)
+
+    const onChangeCategory = (id) => {
+        console.log(id)
+    };
+
 
     React.useEffect(() => {//не получает значение,получает функцию,кот вызывает когда произойдет какой то эффект
         setIsLoading(true)//чтобы подгружались скилетоны
@@ -61,7 +72,7 @@ const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} onChangeCategory={(i) => setCategoryId(i)} />
+                <Categories value={categoryId} onChangeCategory={onChangeCategory } />
                 <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
 
             </div>
