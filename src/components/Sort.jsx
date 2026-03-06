@@ -1,9 +1,14 @@
-import { useState } from "react";
 
-const Sort = ({value, onChangeSort}) => {
-  const [open, setOpen] = useState(false);//открытие закрытие сорт
-  // const [selected, setSelected] = useState(0);//выбранная сортировка,по умолч первое значение выбрано
-  
+import React from 'react';
+// import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import {setSort} from '../redux/slices/filterSlice'
+
+const Sort = () => {
+  const dispatch = useDispatch();
+  const sort = useSelector((state)=>state.filter.sort);
+
+  const [open, setOpen] = React.useState(false);
   const list = [
     { name:'популярность(DECK)', sortProperty: 'rating'}, 
     { name:'популярность(ASC)', sortProperty: '-rating'}, 
@@ -14,8 +19,8 @@ const Sort = ({value, onChangeSort}) => {
   ]//рендер списка
   // const sortName = list[value].name;
 
-  const onClickListItem = (i) => {
-    onChangeSort(i);//выбери пунк меню 
+  const onClickListItem = (obj) => {
+    dispatch(setSort(obj));
     setOpen(false);//скройся
   }
 
@@ -36,7 +41,7 @@ const Sort = ({value, onChangeSort}) => {
         </svg>
 
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
 
       {open && (//условный рендеринг
@@ -46,7 +51,7 @@ const Sort = ({value, onChangeSort}) => {
               list.map((obj, i) => (
                 <li key={i}
                   onClick={() => onClickListItem(obj)}
-                  className={value.sortProperty === obj.sortProperty ? 'active' : ''} >
+                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''} >
                   {obj.name}
                 </li>
               ))

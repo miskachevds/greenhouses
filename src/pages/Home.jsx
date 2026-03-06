@@ -7,37 +7,36 @@ import Skeleton from '../components/PizzaPlock/Skeleton';
 import Pagination from '../components/Pagination/Pagination.jsx';
 import { SearchContext } from '../App.js';
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';//метод меняет сосотояние
 
 
 const Home = () => {
-    const categoryId = useSelector((state) => state.filter.categoryId);
-
-    console.log('id category', categoryId);
-    // const setCategoryId =()=>{};//заглушка временно
+    const { categoryId, sort } = useSelector((state) => state.filter);//+categoryId начальное состояние категорий,сорт
+    const dispatch = useDispatch()//через диспатч передаем категорию 0,1,2
+    // const sortType = useSelector((state)=>state.filter.sort.sortProperty);
 
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);//изначально пустые данные,
     const [isLoading, setIsLoading] = React.useState(true);//если идет загрузка,флаг тру
-
     // const [categoryId, setCategoryId] = React.useState(0);//состояние из категорий
     const [currentPage, setCurrentPage] = React.useState(1);//для паддинга
-    const [sortType, setSortType] = React.useState({
-        name: "популярности",
-        sortProperty: "rating",
-    });//состояние из сортировки
-    // console.log(categoryId,sortType)
+    // const [sortType, setSortType] = React.useState({
+    //         name: "популярности",
+    //         sortProperty: "rating",
+    //     })
 
-    const onChangeCategory = (id) => {
-        console.log(id)
+    const onChangeCategory = (id) => {//когда меняем категор,вызываем dispatch
+        dispatch(setCategoryId(id))//в диспатч передаем метод для смены состояния+id
+        // console.log(id)
     };
-
+  
 
     React.useEffect(() => {//не получает значение,получает функцию,кот вызывает когда произойдет какой то эффект
         setIsLoading(true)//чтобы подгружались скилетоны
 
-        const sortBy = sortType.sortProperty.replace('-', '');
-        const order = sortType.sortProperty.includes('-') ? 'ags' : 'desc';
+        const sortBy = sort.sortProperty.replace('-', '');
+        const order = sort.sortProperty.includes('-') ? 'asс' : 'desc';
         const category = categoryId > 0 ? `categoryId=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
@@ -54,7 +53,7 @@ const Home = () => {
                 // console.log(data)
             })
         window.scrollTo(0, 0);
-    }, [categoryId, sortType, searchValue, currentPage]);//пустой массив=вызвать один раз
+    }, [categoryId, sort.sortProperty, searchValue, currentPage]);//пустой массив=вызвать один раз
     //флаг,как происходят изм обновлять запр
 
     //рендер массива пицц для сокращения кода в константу
@@ -72,16 +71,16 @@ const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} onChangeCategory={onChangeCategory } />
-                <Sort value={sortType} onChangeSort={(i) => setSortType(i)} />
+                <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+                <Sort  />
 
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoading ? skeletons : pizzas}
             </div>
-            <Pagination onChangePage={(number)=> setCurrentPage(number)} />
-            
+            <Pagination onChangePage={(number) => setCurrentPage(number)} />
+
         </div>
     );
 }
