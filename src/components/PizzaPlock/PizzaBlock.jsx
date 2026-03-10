@@ -1,17 +1,31 @@
 import { useState } from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 
+import { addItem } from '../../redux/slices/cartSlice';
 // import imgPizza1 from './../assets/img/image 2.svg'
 
-const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
+const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     // const [pizzaCount, setPizzaCount] = useState(0);
 
     // const onClickAdd =()=>{
     //     setPizzaCount(pizzaCount +1)
     // }
+    const dispatch = useDispatch();
     const [activeType, setActiveType] = useState(0);
     const [activeSize, setActiveSize] = useState(0);
-
     const typeNames = ['тонкое', 'традиционное'];
+
+    const onClickAdd = () => {
+        const item = {
+            id,
+            title,
+            price,
+            imageUrl,
+            type: activeType,
+            size: activeSize
+        };
+        dispatch(addItem(item))//он передается в addItem(state, action) 
+    }
 
     return (
         <div className='pizza-block-wrapper'>
