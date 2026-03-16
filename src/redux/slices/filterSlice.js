@@ -18,6 +18,9 @@ const filterSlice = createSlice({
     setCategoryId(state, action) {//получит стэит и действие
       state.categoryId = action.payload;//получ число катег будет храниться в payload
     },
+    setSearchValue(state, action) {//получит стэит и действие
+      state.searchValue = action.payload;//получ число катег будет храниться в payload
+    },
     setSort(state, action) {//получит стэит и действие
       state.sort = action.payload;
     },
@@ -32,6 +35,11 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setCategoryId,setSort,setCurrentPage,setFilters } = filterSlice.actions;
+export const selectFilter = (state) => state.filter;
+export const selectSort = (state) => state.filter.sort;
+
+export const selectCartItemById = (id)=>(state) => state.cart.items.find(obj=>obj.id === id)
+
+export const { setCategoryId,setSort,setCurrentPage,setFilters,setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;

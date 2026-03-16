@@ -2,22 +2,25 @@ import React from 'react'
 import Seach from './Search.module.css';
 import { SearchContext } from '../../App';
 import debounce from 'lodash.debounce';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 // console.log(searchValue)
 const Search = () => {
+    const dispatch = useDispatch()
     const [value, setValue] = React.useState('');
-    const { setSearchValue } = React.useContext(SearchContext);
+    // const { setSearchValue } = React.useContext(SearchContext);
     const inputRef = React.useRef();//useRef — это "коробка", которая хранит изменяемое значение между рендерами без триггера обновления UI 
 
     const onClickClear = () => {
-        setSearchValue('');
+        dispatch(setSearchValue(''));
         setValue('');
         inputRef.current.focus();
     }
 
     const updateSearchValue = React.useCallback(//отложенная загрузка
         debounce((str) => {
-            setSearchValue(str);
+            dispatch(setSearchValue(str));;
         }, 1000),
       [],
     );

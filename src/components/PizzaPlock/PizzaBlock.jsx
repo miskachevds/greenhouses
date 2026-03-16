@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 
 import { addItem } from '../../redux/slices/cartSlice';
+import { selectCartItemById } from '../../redux/slices/filterSlice';
 const typeNames = ['тонкое', 'традиционное'];
 // import imgPizza1 from './../assets/img/image 2.svg'
 
@@ -12,7 +13,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     //     setPizzaCount(pizzaCount +1)
     // }
     const dispatch = useDispatch();
-    const cartItem = useSelector((state) => state.cart.items.find(obj=>obj.id === id));//если id совпадают
+    const cartItem = useSelector(selectCartItemById(id));//если id совпадают//передаем селектор для короткой записи
     const [activeType, setActiveType] = useState(0);
     const [activeSize, setActiveSize] = useState(0);
 

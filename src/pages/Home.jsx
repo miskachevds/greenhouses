@@ -9,10 +9,10 @@ import Pagination from '../components/Pagination/Pagination.jsx';
 import { SearchContext } from '../App.js';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { fetchPizzas } from '../redux/slices/pizzaSlice.js';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice.js';
 
 
 const Home = () => {
@@ -21,9 +21,9 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector((state) => state.pizza);
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { searchValue } = React.useContext(SearchContext);
+  const { items, status } = useSelector(selectPizzaData);
+  const { categoryId, sort, currentPage,searchValue } = useSelector(selectFilter);
+  // const { searchValue } = React.useContext(SearchContext);//убираем так как редакс
 
   const onChangeCategory = React.useCallback((id) => {
     dispatch(setCategoryId(id));

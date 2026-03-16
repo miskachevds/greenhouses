@@ -10,15 +10,15 @@ import './scss/app.scss'
 // import pizzas from './assets/pizzas.json';
 // console.log(pizzas)
 
-export const SearchContext = React.createContext();
+// export const SearchContext = React.createContext();
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState('');
+  // const [searchValue, setSearchValue] = React.useState('');//так как редакс стате не нужен
 
   return (
     <div className="wrapper">
 
-      <SearchContext.Provider value={{ searchValue, setSearchValue }} >
+      {/* <SearchContext.Provider value={{ searchValue, setSearchValue }} > */}
         <Header />
 
         <div className="content">
@@ -30,7 +30,7 @@ function App() {
             </Routes>
           </div>
         </div>
-      </SearchContext.Provider>
+      {/* </SearchContext.Provider> */}
 
     </div>
   );

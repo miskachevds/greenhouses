@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import logo from './../assets/img/house_logo.png';
 import Search from './Search/Search';
 import {useSelector} from 'react-redux';//вытаскиваем данные
+import { selectCart } from '../redux/slices/cartSlice';
 
 
 function Header() {
-  const {items, totalPrice} = useSelector(state => state.cart)//берем колич,сумма общ
+  const {items, totalPrice} = useSelector(selectCart)//берем колич,сумма общ
 
   const totalCount = items.reduce((sum, item)=>sum+item.count, 0);
 
