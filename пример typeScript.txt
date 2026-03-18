@@ -1,0 +1,25 @@
+
+// function sum(a:number, b:number){
+//     return a+b
+// }
+// console.log(sum(2,2))
+// console.log(sum(3,7))
+
+// const a = 1;
+// const b:string = "5"
+
+// const arr:string[] = ['']
+// let isAuth:boolean = true;
+// isAuth=Boolean(null);//что бы передать преоб 
+
+// let fullName: string | null= 'Вася';
+// fullName=null;
+
+function sayHello(name: string, old?:number): string{
+    return `Hello ${name}! Тебе ${old} лет`
+    // return old
+}
+// const message:string = sayHello('вася',20)
+console.log(sayHello("Вася"))
+// console.log(sayHello("Петя",1))
+// console.log(sayHello("Наташа",39))

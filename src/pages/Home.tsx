@@ -5,8 +5,8 @@ import Categories from '../components/Categories';
 import Sort, { sortlist } from '../components/Sort';
 import PizzaBlock from '../components/PizzaPlock/PizzaBlock';
 import Skeleton from '../components/PizzaPlock/Skeleton';
-import Pagination from '../components/Pagination/Pagination.jsx';
-import { SearchContext } from '../App.js';
+import Pagination from '../components/Pagination/Pagination.js';
+// import { SearchContext } from '../App.js';
 import {Link} from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice.js';
 
 
-const Home = () => {
+const Home:React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = React.useRef(false);
@@ -26,11 +26,11 @@ const Home = () => {
   const { categoryId, sort, currentPage,searchValue } = useSelector(selectFilter);
   // const { searchValue } = React.useContext(SearchContext);//убираем так как редакс
 
-  const onChangeCategory = React.useCallback((id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = React.useCallback((idx:number) => {
+    dispatch(setCategoryId(idx));
   }, [dispatch]);
 
-  const onChangePage = React.useCallback((page) => {
+  const onChangePage = React.useCallback((page:number) => {
     dispatch(setCurrentPage(page));
   }, [dispatch]);
 
@@ -40,7 +40,15 @@ const Home = () => {
     const category = categoryId > 0 ? `categoryId=${categoryId}` : '';
     const search = searchValue ? `&search=${searchValue}` : '';
 
-    dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
+    dispatch(
+      //@ts-ignore
+      fetchPizzas({ 
+        sortBy, 
+        order, 
+        category, 
+        search, 
+        currentPage, 
+      }));
   };
 
   React.useEffect(() => {//синхронизацию состояния фильтров с URL, но только после первого рендера.
@@ -77,7 +85,7 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => 
+  const pizzas = items.map((obj:any) => 
     (<Link key={obj.id} to={`/pizza/${obj.id}`}>
       <PizzaBlock {...obj} />
       </Link> 

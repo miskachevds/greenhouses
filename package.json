@@ -8,6 +8,10 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "axios": "^1.13.6",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.15.0",
@@ -19,6 +23,7 @@
     "react-router-dom": "^6.30.3",
     "react-scripts": "5.0.1",
     "sass": "^1.97.3",
+    "typescript": "^5.9.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

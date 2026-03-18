@@ -6,26 +6,29 @@ import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 
 // console.log(searchValue)
-const Search = () => {
+const Search:React.FC = () => {
     const dispatch = useDispatch()
     const [value, setValue] = React.useState('');
     // const { setSearchValue } = React.useContext(SearchContext);
-    const inputRef = React.useRef();//useRef — это "коробка", которая хранит изменяемое значение между рендерами без триггера обновления UI 
+    const inputRef = React.useRef<HTMLInputElement>(null);//useRef — это "коробка", которая хранит изменяемое значение между рендерами без триггера обновления UI 
 
     const onClickClear = () => {
         dispatch(setSearchValue(''));
         setValue('');
-        inputRef.current.focus();
-    }
+        if(inputRef.current){
+            inputRef.current.focus();
+        }
+        // inputRef.current ? focus();
+    };
 
     const updateSearchValue = React.useCallback(//отложенная загрузка
-        debounce((str) => {
+        debounce((str:string) => {
             dispatch(setSearchValue(str));;
         }, 1000),
       [],
     );
 
-    const onChangeInput = (event) => {
+    const onChangeInput = (event:any) => {
         setValue(event.target.value);
         updateSearchValue(event.target.value);
     }

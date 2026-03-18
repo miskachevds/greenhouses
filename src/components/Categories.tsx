@@ -1,6 +1,12 @@
 // import { useState } from "react";
 
-const Categories = ({value, onChangeCategory }) => {//если будет клик по категории,передаем родителю в home
+//типизируем пропсы
+type CategoriesProps = {
+  value: number;
+  onChangeCategory:any;
+}
+
+const Categories:React.FC<CategoriesProps> = ({value, onChangeCategory }) => {//если будет клик по категории,передаем родителю в home
   // console.log(value)
 
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']

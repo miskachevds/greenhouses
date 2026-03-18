@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { addItem } from '../../redux/slices/cartSlice';
 import { selectCartItemById } from '../../redux/slices/filterSlice';
+
 const typeNames = ['тонкое', 'традиционное'];
 // import imgPizza1 from './../assets/img/image 2.svg'
 
-const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
+type PizzaBlockProps = { id:string, title:string, price:number, imageUrl:string, sizes:number[], types:number[],rating:number }
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, title, price, imageUrl, sizes, types }) =>{
+
     // const [pizzaCount, setPizzaCount] = useState(0);
 
     // const onClickAdd =()=>{
@@ -81,4 +85,4 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
         </div>
     );
 }
-export default PizzaBlock;
+    export default PizzaBlock;
